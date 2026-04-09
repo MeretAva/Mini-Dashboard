@@ -23,7 +23,7 @@ export default function CoinDetail({ coinId, onClose }: Props) {
   };
 
   return (
-    <div className="border rounded-xl p-4">
+    <div className="md:border md:rounded-xl p-4">
       {/* Panel header with close button */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="font-semibold text-lg">Coin Details</h2>

@@ -13,7 +13,7 @@ export default function App() {
   const close = () => setSelectedCoinId(null);
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-6 min-w-sm">
       <h1 className="text-2xl font-bold mb-6">Crypto Dashboard</h1>
       <div className="flex flex-col md:flex-row gap-6">
         {/* Coin list — always visible */}
@@ -32,7 +32,6 @@ export default function App() {
             <CoinDetail coinId={selectedCoinId} onClose={close} />
           </div>
         )}
-         
       </div>
 
       {/* Mobile: vaul bottom-sheet drawer */}

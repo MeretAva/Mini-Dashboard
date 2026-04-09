@@ -1,73 +1,44 @@
-# React + TypeScript + Vite
+# Cryptocurrency Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Finanztip Coding Challenge
+A React + TypeScript + Tailwind CSS mini dashboard for evaluating cryptocurrencies, built using the CoinGecko public API.
 
-Currently, two official plugins are available:
+## Setup Instructions
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+**Prerequisites**
 
-## React Compiler
+- Node.js (LTS version recommended)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Install and run**
 
-## Expanding the ESLint configuration
+1. Clone the repository
+2. Install dependencies:
+   `npm install`
+3. Start the development server:
+   `npm run dev`
+4. Open http://localhost:5173 in your browser
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+No API key is required. The CoinGecko free tier used.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Approach
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Data:** Two custom hooks (useCoins, useCoinDetail) encapsulate all API fetching logic and expose loading, error, and data states. This keeps components clean and focused on rendering.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+**State:** App-level state holds only the selected coin ID. Search, filter, and sort state live in CoinTable. The displayed list is derived via useMemo to avoid unnecessary recalculation.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+**UI:** Components are kept small and focused. LoadingSpinner and the detail panel are reusable. Tailwind utility classes handle all styling without separate CSS files.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+**Responsiveness:** A useMediaQuery hook detects the screen size at runtime
+and adapts the layout accordingly. On mobile, coin details open in a Vaul
+bottom drawer, and on desktop they appear as a side panel.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## What I Would Improve With More Time
+
+- **Tests:** Add unit tests for hooks and utility functions using Vitest and React Testing Library
+- **Pagination or infinite scroll:** Currently limited to 50 coins
+- **Comparison view:** Allow selecting up to 3 coins side by side to compare
+  price, market cap, and 24h change
+- **Route-based navigation:** Use React Router so each coin has its own URL,
+  enabling browser back/forward navigation and shareable links
+- **Error Retry:** Add a retry button to refresh the page in addition to error message from failed fetch
+- **Environmental variables:** Move API base URL into .env file for easier maintenance and adaption

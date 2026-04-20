@@ -65,13 +65,14 @@ export default function PriceChart({ coinId }: Props) {
           />
           <YAxis hide />
           <Tooltip
-            formatter={(value: number) =>
-              value.toLocaleString("de-DE", {
+            formatter={(value) =>
+              (value as number).toLocaleString("de-DE", {
                 style: "currency",
                 currency: "EUR",
               })
             }
           />
+
           <Line
             type="monotone"
             dataKey="price"
